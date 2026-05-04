@@ -3,15 +3,27 @@ import Page from './page.js';
 class LoginPage extends Page {
 
     public get inputUsername () {
-        return $('#username');
+        return $('[data-test="username"]');
     }
 
     public get inputPassword () {
-        return $('#password');
+        return $('[data-test="password"]');
     }
 
     public get btnSubmit () {
-        return $('button[type="submit"]');
+        return $('[data-test="login-button"]');
+    }   
+    
+    public get inventoryItem () {
+        return $('[data-test="inventory-item"]');
+    }
+
+    get errorIcon() {
+        return $$('[data-icon="times-circle"]');
+    }
+
+    get error() {
+        return $('[data-test="error"]');
     }
 
     public async login (username: string, password: string) {
@@ -21,7 +33,7 @@ class LoginPage extends Page {
     }
 
     public open () {
-        return super.open('login');
+        return super.open('');
     }
 }
 
