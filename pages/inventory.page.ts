@@ -37,6 +37,10 @@ class InventoryPage extends Page {
     public get socialLinkedIn() {
         return $('[data-test="social-linkedin"]');
     }
+
+    public get shoppingCart() {
+        return $('[data-test="shopping-cart-badge"]');
+    }
     
     public async openMenuBtnClick () {
         await this.openMenuBtn.click();

@@ -1,33 +1,22 @@
 import LoginPage from '../../pages/login.page.js'
 import InventoryPage from '../../pages/inventory.page.js'
 import { expect } from '@wdio/globals'
-
+import {errorMessages} from '../../test/data/messages.js'
+import {userData} from '../../test/data/users.js'
 
 
 describe('Login', () => {
-    it('Valid Login', async () => {
+
+beforeEach(async () => {
         await LoginPage.open()
-        await LoginPage.login('standard_user', 'secret_sauce')
+        await LoginPage.login(userData.standardUser.username, userData.standardUser.password)
+    });
+
+    it('Valid Login', async () => {
         expect(InventoryPage.inventoryItem).toBeDisplayed()
     })
 
-    it('Login with invalid password', async () => {
-        await LoginPage.open()
-        await LoginPage.login('standard_user', 'secrt_sauce')
-        expect(LoginPage.errorIcon).toBeDisplayed()
-        expect(LoginPage.error).toHaveText('"Epic sadface: Username and password do not match any user in this service" error message is displayed')
-    })
-
-     it('Login with locked out test login', async () => {
-        await LoginPage.open()
-        await LoginPage.login('locked_out_user', 'secret_sauce')
-        expect(LoginPage.errorIcon).toBeDisplayed()
-        expect(LoginPage.error).toHaveText('"Epic sadface: Sorry, this user has been locked out." error message is displayed')
-    })
-
     it('Logout', async () => {
-        await LoginPage.open()
-        await LoginPage.login('standard_user', 'secret_sauce')
         await InventoryPage.openMenuBtnClick()
         expect(InventoryPage.menuItem).toBeDisplayed()
         await InventoryPage.logoutClick()
@@ -36,3 +25,15 @@ describe('Login', () => {
         expect(LoginPage.inputPassword).toHaveValue('');
     })
 })
+    const negativeTests = [
+        { user: userData.invalidUser, expectedError: errorMessages.invalidCredentials, testName: 'Login with invalid password' },
+        { user: userData.lockedOutUser, expectedError: errorMessages.lockedOut, testName: 'Login with locked out test login' },
+    ];
+
+    negativeTests.forEach(({ user, expectedError, testName }) => {
+        it.only(testName, async () => {
+            await LoginPage.open()
+            await LoginPage.login(user.username, user.password);
+            await expect(LoginPage.error).toHaveText(expectedError);
+        });
+});

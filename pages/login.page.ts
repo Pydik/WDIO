@@ -2,19 +2,19 @@ import { $ } from '@wdio/globals'
 import Page from './page.js';
 class LoginPage extends Page {
 
-    public get inputUsername () {
+    get inputUsername () {
         return $('[data-test="username"]');
     }
 
-    public get inputPassword () {
+    get inputPassword () {
         return $('[data-test="password"]');
     }
 
-    public get btnSubmit () {
+    get btnSubmit () {
         return $('[data-test="login-button"]');
     }   
     
-    public get inventoryItem () {
+    get inventoryItem () {
         return $('[data-test="inventory-item"]');
     }
 
