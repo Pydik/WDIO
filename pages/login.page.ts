@@ -26,13 +26,13 @@ class LoginPage extends Page {
         return $('[data-test="error"]');
     }
 
-    public async login (username: string, password: string) {
+    async login (username: string, password: string) {
         await this.inputUsername.setValue(username);
         await this.inputPassword.setValue(password);
         await this.btnSubmit.click();
     }
 
-    public open () {
+    open () {
         return super.open('');
     }
 }

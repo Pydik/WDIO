@@ -2,59 +2,59 @@ import { $ } from '@wdio/globals'
 import Page from './page.js';
 class InventoryPage extends Page {
     
-    public get openMenuBtn () {
+    get openMenuBtn () {
         return $('#react-burger-menu-btn');
     }  
 
-    public get menuItem () {
+    get menuItem () {
         return $$('[class="bm-item menu-item"]');
     }
 
-    public get inventoryItem () {
+    get inventoryItem () {
         return $$('[data-test="inventory-item-description"]');
     }
 
-    public get logout () {
+    get logoutBtn () {
         return $('#logout_sidebar_link');
     }
 
-    public get addToCartBtn () {
-        return $('[class="btn btn_primary btn_small btn_inventory "]');
+    get addToCartBtn () {
+       return $('[class="btn btn_primary btn_small btn_inventory "]');
     }
  
-    public get sortByLoHi() {
+    get sortByLoHi() {
         return $('[class="product_sort_container"] [value="lohi"]');
     }
     
-    public get socialTwitter() {
+    get socialTwitterIcon() {
         return $('[data-test="social-twitter"]');
     }
 
-    public get socialFacebook() {
+    get socialFacebookIcon() {
         return $('[data-test="social-facebook"]');
     }
 
-    public get socialLinkedIn() {
+    get socialLinkedInIcon() {
         return $('[data-test="social-linkedin"]');
     }
 
-    public get shoppingCart() {
+    get shoppingCart() {
         return $('[data-test="shopping-cart-badge"]');
     }
     
-    public async openMenuBtnClick () {
+    async openMenu () {
         await this.openMenuBtn.click();
     }
     
-    public async logoutClick () {
-        await this.logout.click();
+    async logout () {
+        await this.logoutBtn.click();
     }
     
-    public async addToCartBtnClick () {
+    async addToCart () {
         await this.addToCartBtn.click();
     }
 
-    public open () {    
+    open () {    
         return super.open('');
     }
     
@@ -62,18 +62,19 @@ class InventoryPage extends Page {
         await this.sortByLoHi.click();
     }
 
-    async socialTwitterClick() {
-        await this.socialTwitter.click();
+    async socialTwitter() {
+        await this.socialTwitterIcon.click();
         await browser.switchWindow('https://x.com/saucelabs');
     }
-    async socialFacebookClick() {
-        await this.socialFacebook.click();
+    async socialFacebook() {
+        await this.socialFacebookIcon.click();
         await browser.switchWindow('https://www.facebook.com/saucelabs');
     }
-    async socialLinkedInClick() {
-        await this.socialLinkedIn.click();
+    async socialLinkedIn() {
+        await this.socialLinkedInIcon.click();
         await browser.switchWindow('https://www.linkedin.com/company/sauce-labs/');
     }
+
 }
 
 export default new InventoryPage();

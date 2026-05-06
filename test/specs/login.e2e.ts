@@ -17,9 +17,9 @@ beforeEach(async () => {
     })
 
     it('Logout', async () => {
-        await InventoryPage.openMenuBtnClick()
+        await InventoryPage.openMenu()
         expect(InventoryPage.menuItem).toBeDisplayed()
-        await InventoryPage.logoutClick()
+        await InventoryPage.logout()
         expect(await browser.getUrl()).toContain('https://www.saucedemo.com/')
         expect(LoginPage.inputUsername).toHaveValue('');
         expect(LoginPage.inputPassword).toHaveValue('');
