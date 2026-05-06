@@ -15,6 +15,12 @@ class CheckoutStepOne extends Page {
         return $('[data-test="continue"]');
     }
 
+    public readonly path = 'checkout-step-one.html';
+
+    open() {
+        return super.open(this.path);
+    }
+
     async fillCheckout(firstName: string, lastName: string, zip: number) {
         await this.firstName.setValue(firstName);
         await this.lastName.setValue(lastName);

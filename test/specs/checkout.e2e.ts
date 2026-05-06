@@ -5,43 +5,45 @@ import CheckoutMain from '../../pages/checkoutMain.page.js'
 import CheckoutStepTwo from '../../pages/checkoutStepTwo.page.js.js'
 import CheckoutComplete from '../../pages/checkoutComplete.page.js'
 import { expect } from '@wdio/globals'
-
-
+import { userData } from '../data/users.js'
 
 describe('Checkout', () => {
-    it('Valid Checkout', async () => {
-        await LoginPage.open()
-        await LoginPage.login('standard_user', 'secret_sauce')
-        expect(InventoryPage.inventoryItem).toBeDisplayed()
 
-        const products = await (InventoryPage.inventoryItem);
-        const count = await products.length;
-        const randomIndex = Math.floor(Math.random() * count);
-        const selectedProduct = await products[randomIndex];
-        const nameText = await selectedProduct.$('[data-test="inventory-item-name"]').getText();
-        const addToCartButton = await selectedProduct.$('[class="btn btn_primary btn_small btn_inventory "]');
-        await addToCartButton.click();
+    beforeEach(async () => {
+            await LoginPage.open()
+            await LoginPage.login(userData.standardUser.username, userData.standardUser.password)
+            expect(InventoryPage.inventoryItem).toBeDisplayed()
+        });
+
+    it('Valid Checkout', async () => {
+
+        const selectedProduct = await InventoryPage.getRandomProduct();
+        const nameText = await InventoryPage.getProductName(selectedProduct);
+        const price = await InventoryPage.getProductPrice({ product: selectedProduct });
+        await InventoryPage.addProductToCart(selectedProduct);
         expect(await InventoryPage.shoppingCart).toBeDisplayed();
-        const cartButton = await $('[data-test="shopping-cart-link"]');
-        await cartButton.click();
-        const actualName = await $('[data-test="inventory-item-name"]').getText();
+        
+        await InventoryPage.shoppingCart.click();
+        const actualName = await CartPage.getCartItemName();
         await expect(actualName).toBe(nameText);
 
         await CartPage.checkoutClick();
-        await CheckoutMain.fillCheckout('John', 'Doe', 12345);
+        await CheckoutMain.fillCheckout(userData.getRandomValuesUser.username, 
+                                        userData.getRandomValuesUser.password, 
+                                        userData.getRandomValuesUser.postalCode);
         await CheckoutMain.continueBntClick();
+        expect(price).toBe(await CheckoutStepTwo.getInventoryItemPrice());
 
         expect(await CheckoutStepTwo.title).toBeDisplayed();
-        await expect(actualName).toBe(nameText);
-
+        const cartItemNameOnStepTwo = await CheckoutStepTwo.getInventoryItemName();
+        await expect(cartItemNameOnStepTwo).toBe(nameText);
         await CheckoutStepTwo.finishBtnClick();
-
+        await expect(browser).toHaveUrl(expect.stringContaining(CheckoutComplete.path));
         expect(await CheckoutComplete.completeHeader).toHaveText('Thank you for your order!');
+
         await CheckoutComplete.backHomeBtnClick();
-        expect(await browser.getUrl()).toContain('https://www.saucedemo.com/inventory.html');
+        await expect(browser).toHaveUrl(expect.stringContaining(InventoryPage.path));
         expect(await InventoryPage.shoppingCart).not.toBeDisplayed();
-
-
     })
 
 })

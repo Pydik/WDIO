@@ -32,8 +32,10 @@ class LoginPage extends Page {
         await this.btnSubmit.click();
     }
 
+    public readonly path = '';
+
     open () {
-        return super.open('');
+        return super.open(this.path);
     }
 }
 

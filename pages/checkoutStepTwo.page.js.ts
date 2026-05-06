@@ -10,6 +10,28 @@ class CheckoutStepTwo extends Page {
         return $('[data-test="title"]');
     }
 
+    get inventoryItemPrice() {
+        return $$('[data-test="inventory-item-price"]');
+    }
+
+    get inventoryItemName() {
+        return $('[data-test="inventory-item-name"]');
+    }
+
+    async getInventoryItemPrice() {
+        return await this.inventoryItemPrice[0].getText();
+    }
+
+    async getInventoryItemName() {
+        return await this.inventoryItemName.getText();
+    }
+
+    public readonly path = 'checkout-step-two.html';
+
+    open () {    
+        return super.open(this.path);
+    }
+
     async finishBtnClick() {
         return await this.finishBtn.click();
     }

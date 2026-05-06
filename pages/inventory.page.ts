@@ -1,5 +1,6 @@
 import { $ } from '@wdio/globals'
 import Page from './page.js';
+import { ChainablePromiseElement } from 'webdriverio';
 class InventoryPage extends Page {
     
     get openMenuBtn () {
@@ -19,7 +20,7 @@ class InventoryPage extends Page {
     }
 
     get addToCartBtn () {
-       return $('[class="btn btn_primary btn_small btn_inventory "]');
+       return '[class="btn btn_primary btn_small btn_inventory "]';
     }
  
     get sortByLoHi() {
@@ -41,7 +42,36 @@ class InventoryPage extends Page {
     get shoppingCart() {
         return $('[data-test="shopping-cart-badge"]');
     }
-    
+
+    get itemsName() {
+        return '[data-test="inventory-item-name"]';
+    }
+
+    get itemName() {
+        return '[data-test="inventory-item-name"]';
+    }
+
+    get itemPrice() {
+        return '[data-test="inventory-item-price"]';
+    }
+
+    async getRandomProduct() {
+        const products = await this.inventoryItem;
+        return products[(Math.floor(Math.random() * await products.length))];
+    }
+
+    async getProductName(product: ChainablePromiseElement) {
+        return await product.$(this.itemName).getText();
+    }
+
+    async getProductPrice({ product }: { product: any; }): Promise<any> {
+        return await product.$(this.itemPrice).getText();
+    }
+
+    async addProductToCart(product: ChainablePromiseElement) {
+        await product.$(this.addToCartBtn).click();
+    }
+
     async openMenu () {
         await this.openMenuBtn.click();
     }
@@ -51,11 +81,13 @@ class InventoryPage extends Page {
     }
     
     async addToCart () {
-        await this.addToCartBtn.click();
+        await $(this.addToCartBtn).click();
     }
 
+    public readonly path = 'inventory.html';
+
     open () {    
-        return super.open('');
+        return super.open(this.path);
     }
     
     async sortByLoHiClick() {

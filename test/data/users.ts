@@ -9,6 +9,11 @@ export const userData = {
         username: 'standard_user',
         password: faker.internet.password({ length: 10 }),
     },
+    getRandomValuesUser: {
+        username: faker.internet.username(),
+        password: faker.internet.password({ length: 10 }),
+        postalCode: Number(faker.location.zipCode()),
+    },
     lockedOutUser: {
         username: 'locked_out_user',
         password: 'secret_sauce',
