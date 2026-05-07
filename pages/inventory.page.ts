@@ -30,6 +30,17 @@ class InventoryPage extends Page {
     get sortByLoHi() {
         return $('[class="product_sort_container"] [value="lohi"]');
     }
+
+    get sortByHiLo() {
+        return $('[class="product_sort_container"] [value="hilo"]');
+    }
+    get sortByNameaz() {
+        return $('[class="product_sort_container"] [value="az"]');
+    }
+
+        get sortByNameza() {
+        return $('[class="product_sort_container"] [value="za"]');
+    }
     
     get socialTwitterIcon() {
         return $('[data-test="social-twitter"]');
@@ -100,6 +111,18 @@ class InventoryPage extends Page {
     
     async sortByLoHiClick() {
         await this.sortByLoHi.click();
+    }
+
+    async sortByHiLoClick() {
+        await this.sortByHiLo.click();
+    }
+
+    async sortByNameAZ() {
+        await this.sortByNameaz.click();
+    }
+
+        async sortByNameZA() {
+        await this.sortByNameza.click();
     }
 
     async socialTwitter() {
