@@ -20,7 +20,7 @@ class CheckoutStepComplete extends Page {
         return super.open(this.path);
     }
 
-    async backHomeBtnClick() {
+    async backHome() {
         await this.backHomeBtn.click();
     }
 }

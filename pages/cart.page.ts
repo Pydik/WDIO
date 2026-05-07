@@ -13,14 +13,14 @@ class CartPage extends Page {
     }
 
     get cartItemName() {
-        return $('[data-test="inventory-item-name"]');
+        return $$('[data-test="inventory-item-name"]');
     }
 
     async getCartItemName() {
-        return await this.cartItemName.getText();
+        return this.cartItemName.map(item => item.getText());
     }
 
-    async checkoutClick() {
+    async checkoutBtn() {
         return await this.checkout.click();
     }
 }

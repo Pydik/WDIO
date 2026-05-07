@@ -11,7 +11,7 @@ class CheckoutStepOne extends Page {
     get zip() {
         return $('[data-test="postalCode"]');
     }
-    get continueBnt() {
+    get continueBtn() {
         return $('[data-test="continue"]');
     }
 
@@ -27,8 +27,8 @@ class CheckoutStepOne extends Page {
         await this.zip.setValue(zip);
     }
 
-    async continueBntClick() {
-        return await this.continueBnt.click();
+    async continue() {
+        return await this.continueBtn.click();
     }
 }
 

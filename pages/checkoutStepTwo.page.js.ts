@@ -32,7 +32,7 @@ class CheckoutStepTwo extends Page {
         return super.open(this.path);
     }
 
-    async finishBtnClick() {
+    async finish() {
         return await this.finishBtn.click();
     }
 }

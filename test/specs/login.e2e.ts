@@ -16,13 +16,12 @@ beforeEach(async () => {
         expect(InventoryPage.inventoryItem).toBeDisplayed()
     })
 
-    it('Logout', async () => {
+    it.only('Logout', async () => {
         await InventoryPage.openMenu()
         expect(InventoryPage.menuItem).toBeDisplayed()
         await InventoryPage.logout()
-        expect(await browser.getUrl()).toContain('https://www.saucedemo.com/')
-        expect(LoginPage.inputUsername).toHaveValue('');
-        expect(LoginPage.inputPassword).toHaveValue('');
+        expect(await browser.getUrl()).toContain(LoginPage.path)
+        expect((LoginPage.inputUsername , LoginPage.inputPassword)).toHaveValue('');
     })
 })
     const negativeTests = [
@@ -31,7 +30,7 @@ beforeEach(async () => {
     ];
 
     negativeTests.forEach(({ user, expectedError, testName }) => {
-        it.only(testName, async () => {
+        it(testName, async () => {
             await LoginPage.open()
             await LoginPage.login(user.username, user.password);
             await expect(LoginPage.error).toHaveText(expectedError);

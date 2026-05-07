@@ -11,16 +11,20 @@ class InventoryPage extends Page {
         return $$('[class="bm-item menu-item"]');
     }
 
-    get inventoryItem () {
+    get inventoryItem ( ) {
         return $$('[data-test="inventory-item-description"]');
     }
 
     get logoutBtn () {
-        return $('#logout_sidebar_link');
+        return $('[data-test="logout-sidebar-link"]');
     }
 
     get addToCartBtn () {
        return '[class="btn btn_primary btn_small btn_inventory "]';
+    }
+
+    get cartBtn() {
+        return $('[data-test="shopping-cart-link"]');
     }
  
     get sortByLoHi() {
@@ -39,7 +43,7 @@ class InventoryPage extends Page {
         return $('[data-test="social-linkedin"]');
     }
 
-    get shoppingCart() {
+    get shoppingCartBadge() {
         return $('[data-test="shopping-cart-badge"]');
     }
 
@@ -82,6 +86,10 @@ class InventoryPage extends Page {
     
     async addToCart () {
         await $(this.addToCartBtn).click();
+    }
+
+    async shoppingCart() {
+        await this.cartBtn.click();
     }
 
     public readonly path = 'inventory.html';
