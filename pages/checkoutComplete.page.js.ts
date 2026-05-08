@@ -14,7 +14,7 @@ class CheckoutStepComplete extends Page {
         return $('[data-test="complete-header"]');
     }
 
-        public readonly path = 'checkout-complete.html';
+    public readonly path = 'checkout-complete.html';
 
     open () {    
         return super.open(this.path);

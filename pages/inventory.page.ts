@@ -63,11 +63,11 @@ class InventoryPage extends Page {
     }
 
     get itemName() {
-        return '[data-test="inventory-item-name"]';
+        return $$('[data-test="inventory-item-name"]');
     }
 
     get itemPrice() {
-        return '[data-test="inventory-item-price"]';
+        return $$('[data-test="inventory-item-price"]');
     }
 
     async getRandomProduct() {
@@ -76,11 +76,11 @@ class InventoryPage extends Page {
     }
 
     async getProductName(product: ChainablePromiseElement) {
-        return await product.$(this.itemName).getText();
+        return await product.$(this.itemsName).getText();
     }
 
     async getProductPrice({ product }: { product: any; }): Promise<any> {
-        return await product.$(this.itemPrice).getText();
+        return await product.$('[data-test="inventory-item-price"]').getText();
     }
 
     async addProductToCart(product: ChainablePromiseElement) {

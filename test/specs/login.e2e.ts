@@ -7,7 +7,7 @@ import {userData} from '../../test/data/users.js'
 
 describe('Login', () => {
 
-beforeEach(async () => {
+    beforeEach(async () => {
         await LoginPage.open()
         await LoginPage.login(userData.standardUser.username, userData.standardUser.password)
     });
@@ -16,7 +16,7 @@ beforeEach(async () => {
         expect(InventoryPage.inventoryItem).toBeDisplayed()
     })
 
-    it.only('Logout', async () => {
+    it('Logout', async () => {
         await InventoryPage.openMenu()
         expect(InventoryPage.menuItem).toBeDisplayed()
         await InventoryPage.logout()
