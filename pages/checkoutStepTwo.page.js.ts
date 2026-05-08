@@ -1,40 +1,40 @@
-import { $ } from '@wdio/globals'
-import Page from './page.js';
+import { $ } from "@wdio/globals";
+import Page from "./page.js";
 
 class CheckoutStepTwo extends Page {
-    get finishBtn() {
-        return $('[data-test="finish"]');
-    }
+  get finishBtn() {
+    return $('[data-test="finish"]');
+  }
 
-    get title() {
-        return $('[data-test="title"]');
-    }
+  get title() {
+    return $('[data-test="title"]');
+  }
 
-    get inventoryItemPrice() {
-        return $$('[data-test="inventory-item-price"]');
-    }
+  get inventoryItemPrice() {
+    return $$('[data-test="inventory-item-price"]');
+  }
 
-    get inventoryItemName() {
-        return $('[data-test="inventory-item-name"]');
-    }
+  get inventoryItemName() {
+    return $('[data-test="inventory-item-name"]');
+  }
 
-    async getInventoryItemPrice() {
-        return await this.inventoryItemPrice[0].getText();
-    }
+  async getInventoryItemPrice() {
+    return await this.inventoryItemPrice[0].getText();
+  }
 
-    async getInventoryItemName() {
-        return await this.inventoryItemName.getText();
-    }
+  async getInventoryItemName() {
+    return await this.inventoryItemName.getText();
+  }
 
-    public readonly path = 'checkout-step-two.html';
+  public readonly path = "checkout-step-two.html";
 
-    open () {    
-        return super.open(this.path);
-    }
+  open() {
+    return super.open(this.path);
+  }
 
-    async finish() {
-        return await this.finishBtn.click();
-    }
+  async finish() {
+    return await this.finishBtn.click();
+  }
 }
 
 export default new CheckoutStepTwo();

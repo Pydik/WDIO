@@ -1,143 +1,141 @@
-import { $ } from '@wdio/globals'
-import Page from './page.js';
-import { ChainablePromiseElement } from 'webdriverio';
+import { $ } from "@wdio/globals";
+import Page from "./page.js";
+import { ChainablePromiseElement } from "webdriverio";
 class InventoryPage extends Page {
-    
-    get openMenuBtn () {
-        return $('#react-burger-menu-btn');
-    }  
+  get openMenuBtn() {
+    return $("#react-burger-menu-btn");
+  }
 
-    get menuItem () {
-        return $$('[class="bm-item menu-item"]');
-    }
+  get menuItem() {
+    return $$('[class="bm-item menu-item"]');
+  }
 
-    get inventoryItem ( ) {
-        return $$('[data-test="inventory-item-description"]');
-    }
+  get inventoryItem() {
+    return $$('[data-test="inventory-item-description"]');
+  }
 
-    get logoutBtn () {
-        return $('[data-test="logout-sidebar-link"]');
-    }
+  get logoutBtn() {
+    return $('[data-test="logout-sidebar-link"]');
+  }
 
-    get addToCartBtn () {
-       return '[class="btn btn_primary btn_small btn_inventory "]';
-    }
+  get addToCartBtn() {
+    return '[class="btn btn_primary btn_small btn_inventory "]';
+  }
 
-    get cartBtn() {
-        return $('[data-test="shopping-cart-link"]');
-    }
- 
-    get sortByLoHi() {
-        return $('[class="product_sort_container"] [value="lohi"]');
-    }
+  get cartBtn() {
+    return $('[data-test="shopping-cart-link"]');
+  }
 
-    get sortByHiLo() {
-        return $('[class="product_sort_container"] [value="hilo"]');
-    }
-    get sortByNameaz() {
-        return $('[class="product_sort_container"] [value="az"]');
-    }
+  get sortByLoHi() {
+    return $('[class="product_sort_container"] [value="lohi"]');
+  }
 
-        get sortByNameza() {
-        return $('[class="product_sort_container"] [value="za"]');
-    }
-    
-    get socialTwitterIcon() {
-        return $('[data-test="social-twitter"]');
-    }
+  get sortByHiLo() {
+    return $('[class="product_sort_container"] [value="hilo"]');
+  }
+  get sortByNameaz() {
+    return $('[class="product_sort_container"] [value="az"]');
+  }
 
-    get socialFacebookIcon() {
-        return $('[data-test="social-facebook"]');
-    }
+  get sortByNameza() {
+    return $('[class="product_sort_container"] [value="za"]');
+  }
 
-    get socialLinkedInIcon() {
-        return $('[data-test="social-linkedin"]');
-    }
+  get socialTwitterIcon() {
+    return $('[data-test="social-twitter"]');
+  }
 
-    get shoppingCartBadge() {
-        return $('[data-test="shopping-cart-badge"]');
-    }
+  get socialFacebookIcon() {
+    return $('[data-test="social-facebook"]');
+  }
 
-    get itemsName() {
-        return '[data-test="inventory-item-name"]';
-    }
+  get socialLinkedInIcon() {
+    return $('[data-test="social-linkedin"]');
+  }
 
-    get itemName() {
-        return $$('[data-test="inventory-item-name"]');
-    }
+  get shoppingCartBadge() {
+    return $('[data-test="shopping-cart-badge"]');
+  }
 
-    get itemPrice() {
-        return $$('[data-test="inventory-item-price"]');
-    }
+  get itemsName() {
+    return '[data-test="inventory-item-name"]';
+  }
 
-    async getRandomProduct() {
-        const products = await this.inventoryItem;
-        return products[(Math.floor(Math.random() * await products.length))];
-    }
+  get itemName() {
+    return $$('[data-test="inventory-item-name"]');
+  }
 
-    async getProductName(product: ChainablePromiseElement) {
-        return await product.$(this.itemsName).getText();
-    }
+  get itemPrice() {
+    return $$('[data-test="inventory-item-price"]');
+  }
 
-    async getProductPrice({ product }: { product: any; }): Promise<any> {
-        return await product.$('[data-test="inventory-item-price"]').getText();
-    }
+  async getRandomProduct() {
+    const products = await this.inventoryItem;
+    return products[Math.floor(Math.random() * (await products.length))];
+  }
 
-    async addProductToCart(product: ChainablePromiseElement) {
-        await product.$(this.addToCartBtn).click();
-    }
+  async getProductName(product: ChainablePromiseElement) {
+    return await product.$(this.itemsName).getText();
+  }
 
-    async openMenu () {
-        await this.openMenuBtn.click();
-    }
-    
-    async logout () {
-        await this.logoutBtn.click();
-    }
-    
-    async addToCart () {
-        await $(this.addToCartBtn).click();
-    }
+  async getProductPrice({ product }: { product: any }): Promise<any> {
+    return await product.$('[data-test="inventory-item-price"]').getText();
+  }
 
-    async shoppingCart() {
-        await this.cartBtn.click();
-    }
+  async addProductToCart(product: ChainablePromiseElement) {
+    await product.$(this.addToCartBtn).click();
+  }
 
-    public readonly path = 'inventory.html';
+  async openMenu() {
+    await this.openMenuBtn.click();
+  }
 
-    open () {    
-        return super.open(this.path);
-    }
-    
-    async sortByLoHiClick() {
-        await this.sortByLoHi.click();
-    }
+  async logout() {
+    await this.logoutBtn.click();
+  }
 
-    async sortByHiLoClick() {
-        await this.sortByHiLo.click();
-    }
+  async addToCart() {
+    await $(this.addToCartBtn).click();
+  }
 
-    async sortByNameAZ() {
-        await this.sortByNameaz.click();
-    }
+  async shoppingCart() {
+    await this.cartBtn.click();
+  }
 
-        async sortByNameZA() {
-        await this.sortByNameza.click();
-    }
+  public readonly path = "inventory.html";
 
-    async socialTwitter() {
-        await this.socialTwitterIcon.click();
-        await browser.switchWindow('https://x.com/saucelabs');
-    }
-    async socialFacebook() {
-        await this.socialFacebookIcon.click();
-        await browser.switchWindow('https://www.facebook.com/saucelabs');
-    }
-    async socialLinkedIn() {
-        await this.socialLinkedInIcon.click();
-        await browser.switchWindow('https://www.linkedin.com/company/sauce-labs/');
-    }
+  open() {
+    return super.open(this.path);
+  }
 
+  async sortByLoHiClick() {
+    await this.sortByLoHi.click();
+  }
+
+  async sortByHiLoClick() {
+    await this.sortByHiLo.click();
+  }
+
+  async sortByNameAZ() {
+    await this.sortByNameaz.click();
+  }
+
+  async sortByNameZA() {
+    await this.sortByNameza.click();
+  }
+
+  async socialTwitter() {
+    await this.socialTwitterIcon.click();
+    await browser.switchWindow("https://x.com/saucelabs");
+  }
+  async socialFacebook() {
+    await this.socialFacebookIcon.click();
+    await browser.switchWindow("https://www.facebook.com/saucelabs");
+  }
+  async socialLinkedIn() {
+    await this.socialLinkedInIcon.click();
+    await browser.switchWindow("https://www.linkedin.com/company/sauce-labs/");
+  }
 }
 
 export default new InventoryPage();
