@@ -15,6 +15,10 @@ class CheckoutStepOne extends Page {
     return $('[data-test="continue"]');
   }
 
+  get errorMessage() {
+    return $('.error-message-container');
+  }
+
   public readonly path = "checkout-step-one.html";
 
   open() {

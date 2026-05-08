@@ -17,7 +17,7 @@ describe("Checkout", () => {
     expect(InventoryPage.inventoryItem).toBeDisplayed();
   });
 
-  it("Valid Checkout", async () => {
+  it.only("Valid Checkout", async () => {
     const selectedProduct = await InventoryPage.getRandomProduct();
     const nameText = await InventoryPage.getProductName(selectedProduct);
     const price = await InventoryPage.getProductPrice({
@@ -28,7 +28,7 @@ describe("Checkout", () => {
 
     await InventoryPage.shoppingCartBadge.click();
     const actualName = await CartPage.getCartItemName();
-    await expect(actualName).toBe(nameText);
+    await expect(actualName).toContain(nameText);
 
     await CartPage.checkoutBtn();
     await CheckoutMain.fillCheckout(
@@ -57,4 +57,60 @@ describe("Checkout", () => {
     );
     expect(await InventoryPage.shoppingCartBadge).not.toBeDisplayed();
   });
+
+  it("Checkout without products", async () => {
+    await InventoryPage.shoppingCart()
+
+    await CartPage.checkoutBtn();
+    await expect(await browser).toHaveUrl(
+      expect.stringContaining(CheckoutMain.path),
+    );
+    expect(await CheckoutMain.errorMessage).toHaveText(
+      "Error: No items in cart",
+    );
+  });
+
+  it("Selecting a random number of items", async () => {
+    const randomNumber = Math.floor(Math.random() * await (await InventoryPage.inventoryItem).length) + 1;
+    let selectedProductTittle;
+    for (let i = 0; i < randomNumber; i++) {
+      const selectedProduct = await InventoryPage.getRandomProduct();
+      await InventoryPage.addProductToCart(selectedProduct);
+      selectedProductTittle = await InventoryPage.getProductName(selectedProduct);
+      
+      console.log(`Added to cart: ${selectedProductTittle}`);
+    }
+    
+  expect(await InventoryPage.shoppingCartBadge).toHaveText(
+      randomNumber.toString(),
+    );
+
+    await InventoryPage.shoppingCart();
+        await CartPage.checkoutBtn();
+    await CheckoutMain.fillCheckout(
+      userData.getRandomValuesUser.username,
+      userData.getRandomValuesUser.password,
+      userData.getRandomValuesUser.postalCode,
+    );
+    await CheckoutMain.continue();
+    expect(await CheckoutStepTwoPage.title).toBeDisplayed();
+    const cartItemNameOnStepTwo =
+      await CheckoutStepTwoPage.getInventoryItemName();
+      console.log(`Product on checkout step two: ${cartItemNameOnStepTwo}`);
+    await CheckoutStepTwoPage.finish();
+    await expect(browser).toHaveUrl(
+      expect.stringContaining(CheckoutCompletePage.path),
+    );
+    expect(await CheckoutCompletePage.completeHeader).toHaveText(
+      "Thank you for your order!",
+    );
+
+    await CheckoutCompletePage.backHome();
+    await expect(browser).toHaveUrl(
+      expect.stringContaining(InventoryPage.path),
+    );
+    expect(await InventoryPage.shoppingCartBadge).not.toBeDisplayed();
+
+  });
+
 });

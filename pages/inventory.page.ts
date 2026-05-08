@@ -19,18 +19,18 @@ class InventoryPage extends Page {
   }
 
   get addToCartBtn() {
-    return '[class="btn btn_primary btn_small btn_inventory "]';
+    return '.btn_inventory';
   }
 
   get cartBtn() {
     return $('[data-test="shopping-cart-link"]');
   }
 
-  get sortByLoHi() {
+  get sortByLowHigh() {
     return $('[class="product_sort_container"] [value="lohi"]');
   }
 
-  get sortByHiLo() {
+  get sortByHighLow() {
     return $('[class="product_sort_container"] [value="hilo"]');
   }
   get sortByNameaz() {
@@ -108,12 +108,12 @@ class InventoryPage extends Page {
     return super.open(this.path);
   }
 
-  async sortByLoHiClick() {
-    await this.sortByLoHi.click();
+  async sortByLoHi() {
+    await this.sortByLowHigh.click();
   }
 
-  async sortByHiLoClick() {
-    await this.sortByHiLo.click();
+  async sortByHiLo() {
+    await this.sortByHighLow.click();
   }
 
   async sortByNameAZ() {
