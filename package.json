@@ -16,6 +16,8 @@
     "prettier": "^3.8.3"
   },
   "scripts": {
-    "wdio": "wdio run ./wdio.conf.ts"
+    "wdio": "wdio run ./wdio.conf.ts",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
   }
 }

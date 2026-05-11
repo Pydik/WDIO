@@ -1,4 +1,3 @@
-import { $ } from "@wdio/globals";
 import Page from "./page.js";
 
 class CheckoutStepOne extends Page {
@@ -16,7 +15,7 @@ class CheckoutStepOne extends Page {
   }
 
   get errorMessage() {
-    return $('.error-message-container');
+    return $(".error-message-container");
   }
 
   public readonly path = "checkout-step-one.html";

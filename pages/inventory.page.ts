@@ -1,4 +1,3 @@
-import { $ } from "@wdio/globals";
 import Page from "./page.js";
 import { ChainablePromiseElement } from "webdriverio";
 class InventoryPage extends Page {
@@ -19,7 +18,7 @@ class InventoryPage extends Page {
   }
 
   get addToCartBtn() {
-    return '.btn_inventory';
+    return ".btn_inventory";
   }
 
   get cartBtn() {

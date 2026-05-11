@@ -1,1 +1,12 @@
-node_modules
+node_modules/
+allure-results/
+.tmp/
+screenshots/
+logs/
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.log
+.prettierignore
+.prettierrc
