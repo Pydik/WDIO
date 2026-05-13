@@ -62,7 +62,7 @@ describe("Checkout", () => {
     let selectedProductTittle;
     for (let i = 0; i < randomNumber; i++) {
       const selectedProduct = await inventoryPage.getRandomProduct();
-      await inventoryPage.addProductToCart(selectedProduct);
+      inventoryPage.addProductToCart(selectedProduct);
       selectedProductTittle = inventoryPage.getProductName(selectedProduct);
     }
 
