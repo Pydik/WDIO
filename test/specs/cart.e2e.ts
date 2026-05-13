@@ -23,7 +23,7 @@ describe("Cart", () => {
     expect(await browser.getUrl()).toContain(loginPage.path);
     expect((loginPage.inputUsername, loginPage.inputPassword)).toHaveValue("");
 
-    await loginPage.login(userData.standardUser.username, userData.standardUser.password);
+    loginPage.login(userData.standardUser.username, userData.standardUser.password);
     expect(inventoryPage.inventoryItem).toBeDisplayed();
 
     await inventoryPage.shoppingCart();
