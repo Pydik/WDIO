@@ -1,5 +1,5 @@
-import LoginPage from "../../pages/login.page.js";
-import InventoryPage from "../../pages/inventory.page.js";
+import loginPage from "../../pages/login.page.js";
+import inventoryPage from "../../pages/inventory.page.js";
 import { userData } from "../../test/data/users.js";
 import { linkUrls } from "../../test/data/links.js";
 
@@ -23,10 +23,10 @@ describe("Footer Links", () => {
   ];
 
   it("should verify all footer links in one session", async () => {
-    await LoginPage.open();
-    await LoginPage.login(userData.standardUser.username, userData.standardUser.password);
+    await loginPage.open();
+    await loginPage.login(userData.standardUser.username, userData.standardUser.password);
     for (const { linkUrls, methodName } of linkChecker) {
-      await (InventoryPage as any)[methodName]();
+      await (inventoryPage as any)[methodName]();
       expect(browser).toHaveUrl(expect.stringContaining(linkUrls));
       await browser.closeWindow();
     }

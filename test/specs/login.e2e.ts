@@ -1,25 +1,25 @@
-import LoginPage from "../../pages/login.page.js";
-import InventoryPage from "../../pages/inventory.page.js";
+import inventoryPage from "../../pages/inventory.page.js";
+import loginPage from "../../pages/login.page.js";
 import { errorMessages } from "../../test/data/messages.js";
 import { userData } from "../../test/data/users.js";
 
 describe("Login", () => {
   beforeEach(async () => {
-    await LoginPage.open();
-    await LoginPage.login(userData.standardUser.username, userData.standardUser.password);
+    await loginPage.open();
+    await loginPage.login(userData.standardUser.username, userData.standardUser.password);
   });
 
   it("Valid Login", async () => {
-    expect(InventoryPage.inventoryItem).toBeDisplayed();
+    expect(inventoryPage.inventoryItem).toBeDisplayed();
   });
 
   it("Logout", async () => {
-    expect(InventoryPage.inventoryItem).toBeDisplayed();
-    await InventoryPage.openMenu();
-    expect(InventoryPage.menuItem).toBeDisplayed();
-    await InventoryPage.logout();
-    expect(browser).toHaveUrl(expect.stringContaining(LoginPage.path));
-    expect((LoginPage.inputUsername, LoginPage.inputPassword)).toHaveValue("");
+    expect(inventoryPage.inventoryItem).toBeDisplayed();
+    await inventoryPage.openMenu();
+    expect(inventoryPage.menuItem).toBeDisplayed();
+    await inventoryPage.logout();
+    expect(browser).toHaveUrl(expect.stringContaining(loginPage.path));
+    expect((loginPage.inputUsername, loginPage.inputPassword)).toHaveValue("");
   });
 });
 const negativeTests = [
@@ -37,8 +37,8 @@ const negativeTests = [
 
 negativeTests.forEach(({ testName, user, expectedError }) => {
   it(testName, async () => {
-    await LoginPage.open();
-    await LoginPage.login(user.username, user.password);
-    expect(LoginPage.error).toHaveText(expectedError);
+    await loginPage.open();
+    await loginPage.login(user.username, user.password);
+    expect(loginPage.error).toHaveText(expectedError);
   });
 });

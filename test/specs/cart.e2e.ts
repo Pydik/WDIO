@@ -1,33 +1,33 @@
-import LoginPage from "../../pages/login.page.js";
-import InventoryPage from "../../pages/inventory.page.js";
+import loginPage from "../../pages/login.page.js";
+import inventoryPage from "../../pages/inventory.page.js";
 import { userData } from "../data/users.js";
-import CartPage from "../../pages/cart.page.js";
+import cartPage from "../../pages/cart.page.js";
 
 describe("Cart", () => {
   beforeEach(async () => {
-    await LoginPage.open();
-    await LoginPage.login(userData.standardUser.username, userData.standardUser.password);
+    await loginPage.open();
+    await loginPage.login(userData.standardUser.username, userData.standardUser.password);
   });
 
   it("Saving the card after logout ", async () => {
-    expect(InventoryPage.inventoryItem).toBeDisplayed();
-    const selectedProduct = await InventoryPage.getRandomProduct();
-    const nameText = await InventoryPage.getProductName(selectedProduct);
-    await InventoryPage.addProductToCart(selectedProduct);
-    expect(InventoryPage.shoppingCartBadge).toBeDisplayed();
+    expect(inventoryPage.inventoryItem).toBeDisplayed();
+    const selectedProduct = await inventoryPage.getRandomProduct();
+    const nameText = await inventoryPage.getProductName(selectedProduct);
+    await inventoryPage.addProductToCart(selectedProduct);
+    expect(inventoryPage.shoppingCartBadge).toBeDisplayed();
 
-    await InventoryPage.openMenu();
-    expect(InventoryPage.menuItem).toBeDisplayed();
+    await inventoryPage.openMenu();
+    expect(inventoryPage.menuItem).toBeDisplayed();
 
-    await InventoryPage.logout();
-    expect(await browser.getUrl()).toContain(LoginPage.path);
-    expect((LoginPage.inputUsername, LoginPage.inputPassword)).toHaveValue("");
+    await inventoryPage.logout();
+    expect(await browser.getUrl()).toContain(loginPage.path);
+    expect((loginPage.inputUsername, loginPage.inputPassword)).toHaveValue("");
 
-    await LoginPage.login(userData.standardUser.username, userData.standardUser.password);
-    expect(InventoryPage.inventoryItem).toBeDisplayed();
+    await loginPage.login(userData.standardUser.username, userData.standardUser.password);
+    expect(inventoryPage.inventoryItem).toBeDisplayed();
 
-    await InventoryPage.shoppingCart();
-    const actualName = await CartPage.getCartItemName();
+    await inventoryPage.shoppingCart();
+    const actualName = await cartPage.getCartItemName();
     expect(actualName).toContain(nameText);
   });
 });
