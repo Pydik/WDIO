@@ -42,11 +42,11 @@ describe("Products", () => {
       const elements = await itemSelector();
 
       const itemsBeforeSort: string[] = [];
-      for (const itemElement of elements) {
+      for (const itemElement of (elements)) {
         const itemText = await itemElement.getText();
-        itemsBeforeSort.push(itemText);
+      itemsBeforeSort.push(itemText);
       }
-      await sortingMethod();
+      sortingMethod();
 
       const itemsAfterSort: string[] = [];
       for (const itemElement of elements) {

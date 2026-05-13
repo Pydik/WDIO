@@ -50,9 +50,9 @@ describe("Checkout", () => {
   it("Checkout without products  (bug report)", async () => {
     expect(inventoryPage.inventoryItem).toBeDisplayed();
     await inventoryPage.shoppingCart();
-
     await cartPage.checkoutBtn();
-    expect(browser).toHaveUrl(expect.stringContaining(checkoutMain.path));
+
+    await expect(browser).toHaveUrl(expect.stringContaining('/cart'));
   });
 
   it("Selecting a random number of items", async () => {
@@ -63,7 +63,7 @@ describe("Checkout", () => {
     for (let i = 0; i < randomNumber; i++) {
       const selectedProduct = await inventoryPage.getRandomProduct();
       await inventoryPage.addProductToCart(selectedProduct);
-      selectedProductTittle = await inventoryPage.getProductName(selectedProduct);
+      selectedProductTittle = inventoryPage.getProductName(selectedProduct);
     }
 
     expect(inventoryPage.shoppingCartBadge).toHaveText(randomNumber.toString());
